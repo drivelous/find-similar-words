@@ -53,10 +53,22 @@ def check_spelling_optimized(checked_word, word_list):
         for letter1 in ALPHABET:
             for idx2 in range(idx1, len(checked_word) + 2):
                 for letter2 in ALPHABET: 
-                    try_rep = checked_word[0:idx1] + letter1 + checked_word[idx1+1:idx2] + letter2 + checked_word[idx2+1:]
-                    try_hyb1 = checked_word[0:idx1] + letter1 + checked_word[idx1+1:idx2] + letter2 + checked_word[idx2:]
-                    try_hyb2 = checked_word[0:idx1] + letter1 + checked_word[idx1:idx2] + letter2 + checked_word[idx2+1:]
-                    try_ins = checked_word[0:idx1] + letter1 + checked_word[idx1:idx2] + letter2 + checked_word[idx2:]
+                    try_rep = (checked_word[0:idx1] + letter1
+                                        + checked_word[idx1+1:idx2]
+                                        + letter2
+                                        + checked_word[idx2+1:])
+                    try_hyb1 = (checked_word[0:idx1] + letter1
+                                        + checked_word[idx1+1:idx2]
+                                        + letter2
+                                        + checked_word[idx2:])
+                    try_hyb2 = (checked_word[0:idx1] + letter1
+                                        + checked_word[idx1:idx2]
+                                        + letter2
+                                        + checked_word[idx2+1:])
+                    try_ins = (checked_word[0:idx1] + letter1
+                                        + checked_word[idx1:idx2]
+                                        + letter2
+                                        + checked_word[idx2:])
 
                     # Checks if either word is in word_list
                     if try_ins in word_list:
