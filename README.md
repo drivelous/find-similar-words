@@ -91,7 +91,7 @@ word list, it's added to the 'matched' list.</p>
 
 <h3>In practice</h3>
 <p>You can pass the desired word as an argument at execution or you can enter it at the prompt.</p>
-<code><pre>python check_spelling.py internet</pre></code>
+<pre><code>python check_spelling.py internet</code></pre>
 <p>Results:</p>
 <pre><code>
 Loaded 79339 data points
