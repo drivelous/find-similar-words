@@ -29,8 +29,8 @@ def check_spelling(checked_word, dist, word_list):
   return matched
 ```
 
-<p>Taking a word of length <em>x</em> and a list of words <em>w</em> consisting of words length <em>y</em>, the time 
-complexity of finding the global alignment is <em>O(wxy)</em>. Since the Scrabble word list has almost 80,000 words and
+<p>Taking a word of length <em><strong>x</strong></em> and a list of words <em><strong>w</strong></em> consisting of words length <em><strong>y</strong></em>, the time 
+complexity of finding the global alignment is <em><strong>O(wxy)</strong></em>. Since the Scrabble word list has almost 80,000 words and
 the average length of each word is 6.74, an algorithm that needs to compute the alignment of each word has a cap on speed.</p>
 
 <h3>Analysis of optimized implementation</h3>
@@ -42,7 +42,6 @@ def check_spelling_optimized(checked_word, word_list):
     misspelled word
     """
     matched = set([])
-    #if checked_word not in word_list:
     for idx1 in range(len(checked_word) + 1):
         for letter1 in ALPHABET:
             for idx2 in range(idx1, len(checked_word) + 2):
@@ -77,18 +76,66 @@ def check_spelling_optimized(checked_word, word_list):
     return matched
 ```
 
-<p>Given a word of length <em>x</em> and an edit distance <em>d</em>, the optimized version that takes O(x^d) running time.
+<p>Given a word of length <em><strong>x</strong></em> and an edit distance <em><strong>d</strong></em>, the optimized version that takes <em><strong>O(x^d)</strong></em> running time.
 It takes advantage of the facts that:</p>
 
 <ol>
-<li>Python set's membership check is O(1)</li>
+<li>Python set's membership check is <em><strong>O(1)</strong></li>
 <li>The average letter of each word in the Scrabble list is 6.74</li>
 <li>There are only 27 characters in each word to check against (A-Z + the empty string)</li>
 </ol>
 
-<p>Since the question asks for an edit distance of 2, the algorithm is a nested loop that iterates over every position of the 
-word nested equally to the edit distance of the word. In each loop, four strings are created that take the target word and add two letters at a position, replace two letters at a
+<p>Since the extra credit question asked for an edit distance of 2, the algorithm uses two for loops that iterate over every position of the word (the levels of nesting depends on the desired edit distance). In each loop, four strings are created that take the target word and add two letters at a position, replace two letters at a
 position, add at one position and replace in one position, and vice versa. If any of these new strings are in the Scrabble
 word list, it's added to the 'matched' list.</p>
 
-<p>This algorithm is hard coded for all words within an edit distance of 2.</p>
+<h3>In practice</h3>
+<p>You can pass the desired word as an argument at execution or you can enter it at the prompt.</p>
+<code><pre>python check_spelling.py internet</pre></code>
+<p>Results:</p>
+<pre><code>
+Loaded 79339 data points
+Slow algorithm results
+1 internee
+2 intercut
+3 interned
+4 interns
+5 intersex
+6 interbed
+7 interrex
+8 internes
+9 intern
+10 internal
+11 intent
+12 interest
+13 inturned
+14 intermit
+15 interred
+16 interact
+17 interne
+
+Fast algorithm results
+1 intercut
+2 internee
+3 interned
+4 interns
+5 interact
+6 interbed
+7 intern
+8 internes
+9 interrex
+10 internal
+11 intent
+12 interest
+13 inturned
+14 intermit
+15 interred
+16 intersex
+17 interne
+
+The starting word was internet.
+The resulting lists are identical at 17 words a piece
+Slow version:  6.25483703613 seconds
+Optimized version:  0.0676369667053 seconds
+</pre></code>
+
